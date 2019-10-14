@@ -1,1 +1,7 @@
-console.log('你好，世界');
+import Point from './Point';
+import Space from './Space';
+
+export default {
+  Point,
+  Space,
+};
