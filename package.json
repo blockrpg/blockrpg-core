@@ -8,5 +8,11 @@
   "repository": "https://github.com/wrule/blockrpg-core",
   "author": "鸡毛 <shihao.gu@perfma.com>",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "dependencies": {
+    "@types/ioredis": "^4.0.18",
+    "@types/uuid": "^3.4.5",
+    "ioredis": "^4.14.1",
+    "uuid": "^3.3.3"
+  }
 }
