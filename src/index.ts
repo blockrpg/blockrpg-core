@@ -1,7 +1,7 @@
-import Point from './Point';
-import Space from './Space';
+import { Point } from "./Point";
+import { Space } from "./Space";
 
-export default {
+export {
   Point,
   Space,
-};
+}

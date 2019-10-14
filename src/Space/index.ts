@@ -1,7 +1,6 @@
+import { Point } from "../Point";
 
-import Point from '../Point';
-
-export default class Space {
+export class Space {
   // 空间坐标转换为网格坐标
   public static ToGrid(pt: Point): Point {
     return new Point(

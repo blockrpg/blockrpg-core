@@ -1,5 +1,5 @@
 // 用于描述平面直角坐标系之中坐标点的类
-export default class Point {
+export class Point {
   private x: number = 0;
   private y: number = 0;
   public get X(): number {

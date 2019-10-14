@@ -1,9 +1,9 @@
 {
   "name": "blockrpg-core",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "1.0.8",
+  "main": "src/index.ts",
   "scripts": {
-    "dev": "node ./built/index.js"
+    "dev": "node built/index.js"
   },
   "repository": "https://github.com/wrule/blockrpg-core",
   "author": "鸡毛 <shihao.gu@perfma.com>",
