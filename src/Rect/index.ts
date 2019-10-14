@@ -47,7 +47,7 @@ export class Rect {
     return this.h;
   }
   // 返回矩形的所有坐标点
-  public Points(): Point[] {
+  public get Points(): Point[] {
     const list: Point[] = [];
     let x = this.x;
     let y = this.y;
