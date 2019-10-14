@@ -20,16 +20,4 @@ export class Space {
       Math.floor((pt.Y + 6) / 13),
     );
   }
-  // 生成坐标附近九宫格坐标列表
-  public static Nine(pt: Point): Point[] {
-    let x = pt.X - 1;
-    let y = pt.Y - 1;
-    const list: Point[] = [];
-    for (let i = 0; i < 3; ++i) {
-      for (let j = 0; j < 3; ++j) {
-        list.push(new Point(x + j, y + i));
-      }
-    }
-    return list;
-  }
 }
