@@ -4,25 +4,31 @@ import Redis from 'ioredis';
 const Client = new Redis();
 
 export class Session {
-  // 代替构造函数，算是一个语法糖吧
-  public static From(
-    key: string = '',
-    validityMin: number = 20,
-  ): Session {
-    return new Session(key, validityMin);
-  }
-  // session key
-  private readonly key: string;
   // session有效期（分钟）
-  private readonly validityMin: number;
-  public get Key(): string {
-    return this.key;
-  }
-  public get ValidityMin(): number {
+  private static validityMin: number = 20;
+  public static get ValidityMin(): number {
     return this.validityMin;
   }
+  public static set ValidityMin(value: number) {
+    this.validityMin = value;
+  }
+
+  // 代替构造函数，算是一个语法糖吧
+  public static From(id: string = ''): Session {
+    return new Session(id);
+  }
+
+  // session id
+  private readonly id: string;
+  public get Id(): string {
+    return this.id;
+  }
+  public get Key(): string {
+    return `session:${this.id}`;
+  }
+
   // 保存Session
-  public async Save(value: any): Promise<string> {
+  public async Save(value: any = {}): Promise<string> {
     const args: string[] = [];
     const list = Object.entries(value);
     list.forEach(item => {
@@ -45,18 +51,15 @@ export class Session {
   }
   // 更新Session有效期
   public async Update(): Promise<void> {
-    await Client.expire(this.Key, this.ValidityMin * 60);
+    await Client.expire(this.Key, Session.ValidityMin * 60);
   }
+
   // 构造函数
-  public constructor(
-    key: string = '',
-    validityMin: number = 20,
-  ) {
-    if (key) {
-      this.key = key;
+  public constructor(id: string = '') {
+    if (id) {
+      this.id = id;
     } else {
-      this.key = `session:${UUIDV4()}`;
+      this.id = UUIDV4();
     }
-    this.validityMin = validityMin;
   }
 }
