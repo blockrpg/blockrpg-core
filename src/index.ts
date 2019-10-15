@@ -3,6 +3,7 @@ import { Space } from "./Space";
 import { Rect } from "./Rect";
 import { Session } from "./Session";
 import { Config } from "./Config";
+import * as SocketIO from "./SocketIO";
 
 export {
   Point,
@@ -10,4 +11,5 @@ export {
   Rect,
   Session,
   Config,
+  SocketIO,
 }

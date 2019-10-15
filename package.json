@@ -1,6 +1,6 @@
 {
   "name": "blockrpg-core",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "main": "built/",
   "types": "built/index.d.ts",
   "scripts": {
@@ -12,9 +12,13 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
+    "@types/cookie": "^0.3.3",
     "@types/ioredis": "^4.0.18",
+    "@types/socket.io": "^2.1.4",
     "@types/uuid": "^3.4.5",
+    "cookie": "^0.4.0",
     "ioredis": "^4.14.1",
+    "socket.io": "^2.3.0",
     "uuid": "^3.3.3"
   }
 }
