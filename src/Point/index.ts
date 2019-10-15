@@ -35,7 +35,7 @@ export class Point {
   }
   // 构造函数
   public constructor(x: number = 0, y: number = 0) {
-    this.x = Math.floor(x);
-    this.y = Math.floor(y);
+    this.x = x;
+    this.y = y;
   }
 }

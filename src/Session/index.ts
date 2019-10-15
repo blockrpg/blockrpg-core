@@ -1,7 +1,9 @@
 import UUIDV4 from 'uuid/v4';
 import Redis from 'ioredis';
+import { Config } from '../Config';
 
-const Client = new Redis();
+// 根据配置文件创建用于Session访问的Redis客户端
+const Client = new Redis(Config['redis-session']);
 
 export class Session {
   // Session有效期（分钟）
