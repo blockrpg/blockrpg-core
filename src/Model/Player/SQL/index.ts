@@ -1,5 +1,3 @@
-
-// 向表中插入新的玩家
 export const INSERT_PLAYER = `
   INSERT INTO
     player
