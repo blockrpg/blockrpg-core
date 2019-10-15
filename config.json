@@ -1,4 +1,11 @@
 {
+  "mysql": {
+    "connectionLimit" : 100,
+    "host": "localhost",
+    "user": "root",
+    "password": "gushihao",
+    "database": "blockrpg"
+  },
   "redis-session": {
     "host": "localhost",
     "port": 6379,
