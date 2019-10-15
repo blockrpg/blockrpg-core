@@ -11,7 +11,6 @@ export async function queryPlayerByNameDAL(name: string): Promise<any[]> {
   const result = await DBPool.query(QUERY_PLAYER_BY_NAME, name);
   return result[0];
 }
-
 // 根据Id查询玩家列表
 export async function queryPlayerByIdDAL(id: number): Promise<any[]> {
   const result = await DBPool.query(QUERY_PLAYER_BY_ID, id);
