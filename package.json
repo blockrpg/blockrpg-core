@@ -1,9 +1,10 @@
 {
   "name": "blockrpg-core",
-  "version": "1.1.3",
-  "main": "built/index.js",
+  "version": "1.2.0",
+  "main": "built/",
   "types": "built/index.d.ts",
   "scripts": {
+    "build": "tsc",
     "dev": "node built/index.js"
   },
   "repository": "https://github.com/wrule/blockrpg-core",
