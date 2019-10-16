@@ -9,8 +9,8 @@ import { Rtv } from "../../../Rtv";
 export async function playerRegisterBLL(
   name: string,
   password: string,
-): Promise<Rtv> {
-  let result: Rtv;
+): Promise<Rtv<Player>> {
+  let result: Rtv<Player>;
   // 从连接池之中获取数据库连接
   const conn = await DBPool.getConnection();
   // 根据数据库连接构建数据访问层
@@ -28,7 +28,7 @@ export async function playerRegisterBLL(
     const id = await DAL.insertPlayer(newPlayer);
     if (id) {
       newPlayer.Id = id;
-      result = Rtv.Success(newPlayer.Account, '注册成功');
+      result = Rtv.Success(newPlayer, '注册成功');
     } else {
       result = Rtv.Fail('注册失败，无法创建新玩家');
     }

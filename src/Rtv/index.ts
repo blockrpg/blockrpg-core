@@ -1,11 +1,12 @@
-export class Rtv {
+// 携带状态，返回值，消息的返回值类型（泛型类）
+export class Rtv<T> {
   private isSuccess: boolean = false;
-  private object: any = null;
+  private object: T | null = null;
   private message: string = '';
 
   public constructor(
     isSuccess: boolean = false,
-    object: any = null,
+    object: T | null = null,
     message: string = '',
   ) {
     this.isSuccess = isSuccess;
@@ -17,19 +18,19 @@ export class Rtv {
     return this.isSuccess;
   }
 
-  public get Object(): any {
-    return this.object;
+  public get Object(): T {
+    return this.object as T;
   }
 
   public get Message(): string {
     return this.message;
   }
 
-  public static Success(object: any = null, message: string = ''): Rtv {
+  public static Success<T>(object: T | null = null, message: string = ''): Rtv<T> {
     return new Rtv(true, object, message);
   }
 
-  public static Fail(message: string = '', object: any = null): Rtv {
+  public static Fail<T>(message: string = '', object: T | null = null): Rtv<T> {
     return new Rtv(false, object, message);
   }
 }

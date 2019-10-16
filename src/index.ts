@@ -11,8 +11,10 @@ import { PlayerDAL } from './Model/Player/DAL';
 import { playerRegisterBLL } from './Model/Player/BLL';
 
 async function test() {
-  const rtv = await playerRegisterBLL('鸡毛巾3', 'gushihao');
-  console.log(rtv);
+  const rtv = await playerRegisterBLL('习近平1', 'gushihao');
+  if (rtv.IsSuccess) {
+    console.log(rtv.Object.Account);
+  }
 }
 
 test();
