@@ -57,7 +57,7 @@ export class Player {
   }
   // 获取玩家账户
   public get Account(): string {
-    if (!isFinite(this.id as any)) {
+    if (this.id === undefined) {
       throw(new Error('id为空无法获取account'));
     }
     return (this.id as number + 10000).toString();

@@ -2,6 +2,12 @@ import { Player } from "../Entity";
 import { PlayerDAL } from "../DAL";
 import DBPool from '../../../DBPool';
 import { Rtv } from "../../../Rtv";
+import { Session } from '../../../Session';
+
+// 判断一个文本是否为本系统账户（纯数字）
+function isAccount(text: string): boolean {
+  return /^\d+$/.test(text.trim());
+}
 
 // 玩家注册
 // 输入昵称以及密码进行玩家注册
@@ -11,6 +17,11 @@ export async function playerRegisterBLL(
   password: string,
 ): Promise<Rtv<Player>> {
   let result: Rtv<Player>;
+  // 如果玩家昵称为纯数字的话（登录时与账户歧义）
+  if (isAccount(name)) {
+    result = Rtv.Fail('玩家昵称不能为纯数字');
+    return result;
+  }
   // 从连接池之中获取数据库连接
   const conn = await DBPool.getConnection();
   // 根据数据库连接构建数据访问层
@@ -41,12 +52,44 @@ export async function playerRegisterBLL(
   DAL.Connection.release();
   return result;
 }
-// 玩家登录，可以通过昵称和账户进行登录
+// 玩家登录
+// 可以通过昵称和账户进行登录
+// 返回为登录Session以及玩家信息
 export async function playerLoginBLL(
   input: string,
   password: string,
-) {
-
+): Promise<Rtv<{
+  session: string,
+  player: Player,
+}>> {
+  let result: Player | null = null;
+  // 登录类型字段描述
+  let infoName = '';
+  // 区分通过账户和通过昵称登录
+  if (isAccount(input)) {
+    infoName = '账户';
+    result = await queryPlayerByAccountBLL(input);
+  } else {
+    infoName = '昵称';
+    result = await queryPlayerByNameBLL(input);
+  }
+  if (result && (result as Player).Password === password) {
+    const player = result as Player;
+    // 设置登录Session
+    const session = await Session.Set({
+      account: player.Account,
+      name: player.Name,
+      image: player.Image,
+    });
+    // 删除返回数据之中的password
+    player.Password = '';
+    return Rtv.Success({
+      session: session,
+      player: player,
+    });
+  } else {
+    return Rtv.Fail(`玩家${infoName}或密码错误`);
+  }
 }
 // 通过昵称查询玩家信息
 // 查询到了则返回玩家信息，否则返回null
