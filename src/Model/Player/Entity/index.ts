@@ -66,6 +66,14 @@ export class Player {
   public get JsObj(): any {
     return { ...this };
   }
+  // 面向前端的对象
+  public get FEObj(): any {
+    const newObj: any = { ...this };
+    delete newObj.password;
+    delete newObj.id;
+    newObj.account = this.Account;
+    return newObj;
+  }
   // 构造函数
   public constructor(params: any = {}) {
     this.id = params.id;

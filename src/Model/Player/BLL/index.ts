@@ -39,7 +39,7 @@ export async function playerRegisterBLL(
     const id = await DAL.insertPlayer(newPlayer);
     if (id) {
       newPlayer.Id = id;
-      result = Rtv.Success(newPlayer, '注册成功');
+      result = Rtv.Success(newPlayer.FEObj, '注册成功');
     } else {
       result = Rtv.Fail('注册失败，无法创建新玩家');
     }
@@ -81,11 +81,9 @@ export async function playerLoginBLL(
       name: player.Name,
       image: player.Image,
     });
-    // 删除返回数据之中的password
-    player.Password = '';
     return Rtv.Success({
       session: session,
-      player: player,
+      player: player.FEObj,
     });
   } else {
     return Rtv.Fail(`玩家${infoName}或密码错误`);
@@ -96,7 +94,7 @@ export async function playerLoginBLL(
 export async function queryPlayerByNameBLL(name: string): Promise<Player | null> {
   const list = await PlayerDAL.From().queryPlayerByNameDAL(name);
   if (list.length > 0) {
-    return new Player(list[0]);
+    return new Player(list[0]).FEObj;
   } else {
     return null;
   }
@@ -113,7 +111,7 @@ export async function queryPlayerByAccountBLL(account: string): Promise<Player |
   id = Math.floor(id);
   const list = await PlayerDAL.From().queryPlayerByIdDAL(id);
   if (list.length > 0) {
-    return new Player(list[0]);
+    return new Player(list[0]).FEObj;
   } else {
     return null;
   }
