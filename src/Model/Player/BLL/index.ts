@@ -65,13 +65,19 @@ export async function playerLoginBLL(
   let result: Player | null = null;
   // 登录类型字段描述
   let infoName = '';
+  // 玩家查询结果
+  let list: any[] = [];
   // 区分通过账户和通过昵称登录
   if (isAccount(input)) {
     infoName = '账户';
-    result = await queryPlayerByAccountBLL(input);
+    list = await PlayerDAL.From().queryPlayerByIdDAL(Math.floor(Number(input)));
   } else {
     infoName = '昵称';
-    result = await queryPlayerByNameBLL(input);
+    list = await PlayerDAL.From().queryPlayerByNameDAL(input);
+  }
+  // 设置result
+  if (list.length > 0) {
+    result = new Player(list[0]);
   }
   if (result && (result as Player).Password === password) {
     const player = result as Player;
