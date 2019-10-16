@@ -20,7 +20,7 @@ export class App {
   // 构造函数
   public constructor(
     func:
-    (app: Koa<Koa.DefaultState, Koa.DefaultContext>) => Koa<Koa.DefaultState, Koa.DefaultContext>,
+    (app: Koa<Koa.DefaultState, Koa.DefaultContext>) => any,
     routerOpt?: Router.IRouterOptions | undefined) {
     this.app = new Koa();
     this.router = new Router(routerOpt);
