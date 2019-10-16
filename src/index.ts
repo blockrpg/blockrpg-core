@@ -6,10 +6,16 @@ import { Config } from "./Config";
 import * as SocketIO from "./SocketIO";
 import * as Koa from "./Koa";
 import { Rtv } from './Rtv';
-import { Player } from './Player';
+import { Player } from './Model/Player/Entity';
+import { PlayerDAL } from './Model/Player/DAL';
+import { playerRegisterBLL } from './Model/Player/BLL';
 
-const p = new Player();
-console.log(p.JsObj);
+async function test() {
+  const rtv = await playerRegisterBLL('鸡毛巾3', 'gushihao');
+  console.log(rtv);
+}
+
+test();
 
 export {
   Point,
