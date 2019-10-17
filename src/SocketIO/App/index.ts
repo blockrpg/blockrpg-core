@@ -5,6 +5,7 @@ import Cookie from 'cookie';
 import http from 'http';
 import { Session } from '../../Session';
 import { Config } from '../../Config';
+import { Client } from './Client';
 
 export class App {
   // 命名空间名称
@@ -18,11 +19,7 @@ export class App {
   // 创建的应用命名空间
   private namespc: SocketIO.Namespace;
   // 开放给用户的回调
-  private func: (client: {
-    socket: SocketIO.Socket,
-    player: any,
-    session?: string,
-  }, app: App) => void;
+  private func: (client: Client, app: App) => void;
 
   public get Name(): string {
     return this.name;
@@ -39,11 +36,7 @@ export class App {
   public get NameSpace(): SocketIO.Namespace {
     return this.namespc;
   }
-  public get Func(): (client: {
-    socket: SocketIO.Socket,
-    player: any,
-    session?: string,
-  }, app: App) => void {
+  public get Func(): (client: Client, app: App) => void {
     return this.func;
   }
 
@@ -64,17 +57,9 @@ export class App {
       const session = this.readCookie(socket.request.headers.cookie, 'session');
       // 利用获取的Session读取登录玩家信息
       const player = await Session.Get(session);
-      this.func({
-        socket,
-        player,
-        session,
-      }, this);
+      this.func(new Client(socket, player, session), this);
     } else {
-      this.func({
-        socket,
-        player: undefined,
-        session: undefined,
-      }, this);
+      this.func(new Client(socket), this);
     }
   }
 
@@ -100,11 +85,7 @@ export class App {
   // 构造函数
   public constructor(
     name: string = '',
-    func: (client: {
-      socket: SocketIO.Socket,
-      player: any,
-      session?: string,
-    }, app: App) => void,
+    func: (client: Client, app: App) => void,
     auth: boolean = true,
     server?: http.Server,
     opts?: SocketIO.ServerOptions,
