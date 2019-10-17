@@ -7,6 +7,12 @@ import * as SocketIO from "./SocketIO";
 import * as Koa from "./Koa";
 import { Rtv } from './Rtv';
 
+async function main() {
+
+}
+
+main();
+
 export {
   Point,
   Space,
