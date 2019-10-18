@@ -3,13 +3,13 @@ import { Space } from '../../../Space';
 
 // 漫步者
 export class Roamer {
-  private account?: string;
+  private account: string;
   private x: number = 0;
   private y: number = 0;
   private dir: number = 1;
   private ges: number = 0;
 
-  public get Account(): string | undefined {
+  public get Account(): string {
     return this.account;
   }
   public get X(): number {
@@ -39,10 +39,10 @@ export class Roamer {
 
   // 构造函数
   public constructor(params: any) {
-    this.account = params.account || undefined;
-    this.x = params.x || 0;
-    this.y = params.y || 0;
-    this.dir = params.dir || 1;
-    this.ges = params.ges || 0;
+    this.account = params.account;
+    this.x = Number(params.x || 0);
+    this.y = Number(params.y || 0);
+    this.dir = Number(params.dir || 1);
+    this.ges = Number(params.ges || 0);
   }
 }
