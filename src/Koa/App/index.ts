@@ -61,7 +61,7 @@ export class App {
         backlog,
         listeningListener,
       );
-      console.log(`👌Koa: ${this.name} 服务已启动在 ${smtPort} 端口🚀...`);
+      console.log(`👌 Koa: ${this.name} 服务已启动在 ${smtPort} 端口🚀...`);
       return result;
     } else {
       throw new Error('请传入或在配置文件中配置正确的服务端口');
