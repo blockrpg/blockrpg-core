@@ -2,7 +2,7 @@ import Koa from 'koa';
 import { Rsp } from '../Rsp';
 import { Session } from '../../Session';
 
-const errMsg = '未登录，无法访问';
+const errMsg = '未登录，无法访问😡';
 
 export default async (
   ctx: Koa.ParameterizedContext<Koa.DefaultState, Koa.DefaultContext>,

@@ -73,7 +73,7 @@ export class App {
       if (isFinite(smtPort)) {
         smtPort = Math.floor(Number(smtPort));
         this.io.listen(smtPort, opts);
-        console.log(`Socket.IO: ${this.name} 服务已启动在 ${smtPort} 端口...`);
+        console.log(`👌Socket.IO: ${this.name} 服务已启动在 ${smtPort} 端口🚀...`);
       } else {
         throw new Error('请传入或在配置文件中配置正确的服务端口');
       }

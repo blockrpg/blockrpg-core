@@ -3,7 +3,7 @@ import SocketIO from 'socket.io';
 import Cookie from 'cookie';
 import { Session } from '../../Session';
 
-const errMsg = '未授权，无法访问此服务';
+const errMsg = '未授权，无法访问此服务😡';
 
 export default async (socket: SocketIO.Socket, next: (err?: any) => void) => {
   const cookieText: string = socket.request.headers.cookie || '';
