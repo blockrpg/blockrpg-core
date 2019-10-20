@@ -6,6 +6,7 @@ import { Config } from "./Config";
 import * as SocketIO from "./SocketIO";
 import * as Koa from "./Koa";
 import { Rtv } from './Rtv';
+import { Password } from './Password';
 
 async function main() {
 
@@ -22,4 +23,5 @@ export {
   SocketIO,
   Koa,
   Rtv,
+  Password,
 }

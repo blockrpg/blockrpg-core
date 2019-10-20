@@ -1,6 +1,6 @@
 {
   "name": "blockrpg-core",
-  "version": "1.6.5",
+  "version": "1.6.7",
   "main": "built/",
   "types": "built/index.d.ts",
   "scripts": {
@@ -15,6 +15,7 @@
     "@types/bluebird": "^3.5.28",
     "@types/cookie": "^0.3.3",
     "@types/ioredis": "^4.0.18",
+    "@types/jssha": "^2.0.0",
     "@types/koa": "^2.0.50",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-router": "^7.0.42",
@@ -23,6 +24,7 @@
     "bluebird": "^3.7.0",
     "cookie": "^0.4.0",
     "ioredis": "^4.14.1",
+    "jssha": "^2.3.1",
     "koa": "^2.10.0",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
