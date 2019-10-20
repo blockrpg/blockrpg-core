@@ -1,4 +1,4 @@
-import { Point } from "..";
+import { Point } from "../Point";
 
 export class Rect {
   // 从两个点之中构建矩形
