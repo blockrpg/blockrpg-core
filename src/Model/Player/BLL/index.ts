@@ -70,7 +70,7 @@ export async function playerLoginBLL(
   // 区分通过账户和通过昵称登录
   if (isAccount(input)) {
     infoName = '账户';
-    list = await PlayerDAL.From().queryPlayerByIdDAL(Math.floor(Number(input)));
+    list = await PlayerDAL.From().queryPlayerByIdDAL(Math.floor(Number(input)) - 10000);
   } else {
     infoName = '昵称';
     list = await PlayerDAL.From().queryPlayerByNameDAL(input);
