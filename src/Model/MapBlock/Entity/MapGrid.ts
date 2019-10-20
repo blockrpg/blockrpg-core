@@ -22,7 +22,7 @@ export class MapGrid {
   }
   public constructor(params: any) {
     this.pass = params.pass || false;
-    this.resId = params.resId || 1;
-    this.resNum = params.resNum || 1;
+    this.resId = params.resId || 0;
+    this.resNum = params.resNum || 0;
   }
 }
