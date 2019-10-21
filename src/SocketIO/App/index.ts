@@ -100,6 +100,8 @@ export class App {
     this.namespc = this.auth ? this.io.of(this.name).use(Auth) : this.io.of(this.name);
     // 客户端连接事件
     // 回调之中获得连接到客户端的Socket
-    this.namespc.on('connection', this.Connection);
+    this.namespc.on('connection', (socket) => {
+      this.Connection(socket);
+    });
   }
 }
