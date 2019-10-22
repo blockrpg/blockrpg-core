@@ -18,13 +18,12 @@ export class PlayerMeta {
     }
   }
 
-  private id: number;
   private account: string;
   private name: string;
   private image: number;
 
   public get Id(): number {
-    return this.id;
+    return PlayerMeta.ToId(this.account);
   }
   public get Account(): string {
     return this.account;
@@ -35,9 +34,8 @@ export class PlayerMeta {
   public get Image(): number {
     return this.image;
   }
-
   // 转换为Json字符串，有利于存储
-  public ToJson(): string {
+  public get Json(): string {
     return JSON.stringify({
       account: this.account,
       name: this.name,
@@ -52,7 +50,6 @@ export class PlayerMeta {
     image: number,
   }) {
     this.account = params.account;
-    this.id = PlayerMeta.ToId(this.account);
     this.name = params.name;
     this.image = params.image;
   }

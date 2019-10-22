@@ -1,24 +1,27 @@
 
 // 漫步者集群类
 // 每一个地图区块会在Redis之中缓存一个漫步者集群
-// Id为地图区块的Id，Accounts为当前存储在此集群中的玩家账户
-class RoamerCluster {
-  private id: string;
-  private accounts: string[];
+import { PlayerMeta } from '../../PlayerMeta/Entity';
 
-  public get Id(): string {
-    return this.id;
+export class RoamerCluster {
+  private blockId: string;
+  private players: PlayerMeta[];
+
+  // 地图块Id
+  public get BlockId(): string {
+    return this.blockId;
+  }
+  // 在当前块之中的所有玩家列表（这里存储的是PlayerMeta信息）
+  public get Players(): PlayerMeta[] {
+    return this.players;
   }
 
-  public get Accounts(): string[] {
-    return this.accounts;
-  }
-
+  // 构造函数
   public constructor(
-    id: string,
-    accounts: string[] = [],
+    blockId: string,
+    players: string[],
   ) {
-    this.id = id;
-    this.accounts = accounts;
+    this.blockId = blockId;
+    this.players = players.map((json) => new PlayerMeta(JSON.parse(json)));
   }
 }
