@@ -3,6 +3,7 @@ import { PlayerDAL } from "../DAL";
 import DBPool from '../../../DBPool';
 import { Rtv } from "../../../Rtv";
 import { Session } from '../../../Session';
+import { PlayerMeta } from "../../PlayerMeta/Entity";
 
 // 判断一个文本是否为本系统账户（纯数字）
 function isAccount(text: string): boolean {
@@ -82,11 +83,11 @@ export async function playerLoginBLL(
   if (result && (result as Player).Password === password) {
     const player = result as Player;
     // 设置登录Session
-    const session = await Session.Set({
+    const session = await Session.Set(new PlayerMeta({
       account: player.Account,
       name: player.Name,
       image: player.Image,
-    });
+    }));
     return Rtv.Success({
       session: session,
       player: player.FEObj,

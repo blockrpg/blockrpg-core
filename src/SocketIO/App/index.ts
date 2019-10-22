@@ -6,6 +6,7 @@ import http from 'http';
 import { Session } from '../../Session';
 import { Config } from '../../Config';
 import { Client } from './Client';
+import { PlayerMeta } from '../../Model/PlayerMeta/Entity';
 
 export class App {
   // 命名空间名称
@@ -57,7 +58,7 @@ export class App {
       const session = this.readCookie(socket.request.headers.cookie, 'session');
       // 利用获取的Session读取登录玩家信息
       const player = await Session.Get(session);
-      this.func(new Client(socket, player, session), this);
+      this.func(new Client(socket, player as PlayerMeta, session), this);
     } else {
       this.func(new Client(socket), this);
     }

@@ -1,6 +1,7 @@
 import UUIDV4 from 'uuid/v4';
 import Redis from 'ioredis';
 import { Config } from '../Config';
+import { PlayerMeta } from '../Model/PlayerMeta/Entity';
 
 // 根据配置文件创建用于Session访问的Redis客户端
 const Client = new Redis(Config['redis-session']);
@@ -21,9 +22,13 @@ export class Session {
   }
 
   // 设置新的Session
-  public static async Set(value: any = {}): Promise<string> {
+  public static async Set(value: PlayerMeta): Promise<string> {
     const args: string[] = [];
-    const list = Object.entries(value);
+    const list = Object.entries({
+      account: value.Account,
+      name: value.Name,
+      image: value.Image,
+    });
     list.forEach(item => {
       args.push(...(item as [string, string]));
     });
@@ -39,9 +44,18 @@ export class Session {
     return !!result;
   }
   // 读取Session的值
-  public static async Get(id: string): Promise<any> {
+  // 如果存在则返回一个PlayerMeta信息
+  // 如果不存在则返回null
+  public static async Get(id: string): Promise<PlayerMeta | null> {
     await this.Update(id);
-    return await Client.hgetall(this.Key(id));
+    const result = await Client.hgetall(this.Key(id));
+    if (Object.keys(result).length >= 3) {
+      // 这里手动处理一下类型兼容
+      result['image'] = Number(result['image']);
+      return new PlayerMeta(result);
+    } else {
+      return null;
+    }
   }
   // 更新Session有效期
   public static async Update(id: string): Promise<void> {
