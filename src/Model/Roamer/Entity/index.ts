@@ -38,11 +38,17 @@ export class Roamer {
   }
 
   // 构造函数
-  public constructor(params: any) {
+  public constructor(params: {
+    account: string,
+    x: number,
+    y: number,
+    dir: number,
+    ges: number,
+  }) {
     this.account = params.account;
-    this.x = Number(params.x || 0);
-    this.y = Number(params.y || 0);
-    this.dir = Number(params.dir || 1);
-    this.ges = Number(params.ges || 0);
+    this.x = params.x;
+    this.y = params.y;
+    this.dir = params.dir;
+    this.ges = params.ges;
   }
 }
