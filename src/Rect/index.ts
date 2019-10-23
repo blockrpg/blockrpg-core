@@ -58,6 +58,17 @@ export class Rect {
     }
     return list;
   }
+
+  // 判断一个点是否存在于矩形之中
+  public Exist(pt: Point): boolean {
+    return (
+      pt.X >= this.X1 &&
+      pt.X <= this.X2 &&
+      pt.Y >= this.Y1 &&
+      pt.Y <= this.Y2
+    );
+  }
+
   // 构造函数
   public constructor(
     x: number = 0,
