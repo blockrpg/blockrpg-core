@@ -6,14 +6,14 @@ export async function roamerEnter(
   clusterId: string,
   roamer: Roamer,
 ): Promise<void> {
-  await RoamerClusterDAL.From().insertRoamer(clusterId, roamer);
+  await RoamerClusterDAL.From().setRoamer(clusterId, roamer);
 }
 // Roamer离开某一个集群
 export async function roamerLeave(
   clusterId: string,
   account: string,
 ): Promise<void> {
-  await RoamerClusterDAL.From().removeRoamer(clusterId, account);
+  await RoamerClusterDAL.From().delRoamer(clusterId, account);
 }
 // Roamer从一个集群移动到另外一个集群
 export async function roamerMove(

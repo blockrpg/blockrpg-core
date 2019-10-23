@@ -20,15 +20,15 @@ export class RoamerClusterDAL extends DAL {
     return `roamercluster:${value}`;
   }
 
-  // 向集群中插入Roamer信息
-  public async insertRoamer(
+  // 在集群中设置Roamer信息
+  public async setRoamer(
     clusterId: string,
     roamer: Roamer,
   ): Promise<void> {
     await Client.hset(this.Key(clusterId), roamer.Account, roamer.Json);
   }
-  // 在集群之中删除Roamer信息
-  public async removeRoamer(
+  // 在集群中删除Roamer信息
+  public async delRoamer(
     clusterId: string,
     account: string,
   ): Promise<void> {
@@ -43,7 +43,19 @@ export class RoamerClusterDAL extends DAL {
     await Client.hset(this.Key(dstClusterId), roamer.Account, roamer.Json);
     await Client.hdel(this.Key(srcClusterId), roamer.Account);
   }
-  // 查询集群内所有的Roamer信息
+  // 根据集群Id和账户在集群中查找某一Roamer信息
+  public async getRoamer(
+    clusterId: string,
+    account: string,
+  ): Promise<Roamer | null> {
+    const result = await Client.hget(this.Key(clusterId), account);
+    if (result) {
+      return new Roamer(JSON.parse(result));
+    } else {
+      return null;
+    }
+  }
+  // 查询某个集群内所有的Roamer信息
   public async queryRoamers(clusterId: string): Promise<Roamer[]> {
     const values: string[] = await Client.hvals(this.Key(clusterId));
     return values.map((value) => new Roamer(JSON.parse(value)));

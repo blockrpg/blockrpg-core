@@ -1,4 +1,4 @@
-
+// 过时了，没有用到
 // 漫步者集群类
 // 每一个地图区块会在Redis之中缓存一个漫步者集群
 import { PlayerMeta } from '../../PlayerMeta/Entity';
