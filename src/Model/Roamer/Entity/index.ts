@@ -4,13 +4,21 @@ import { Space } from '../../../Space';
 // 漫步者
 export class Roamer {
   private account: string;
-  private x: number = 0;
-  private y: number = 0;
-  private dir: number = 1;
-  private ges: number = 0;
+  private name: string;
+  private image: number;
+  private x: number;
+  private y: number;
+  private dir: number;
+  private ges: number;
 
   public get Account(): string {
     return this.account;
+  }
+  public get Name(): string {
+    return this.name;
+  }
+  public get Image(): number {
+    return this.image;
   }
   public get X(): number {
     return this.x;
@@ -36,19 +44,27 @@ export class Roamer {
   public get CurBlockPoint(): Point {
     return Space.ToBlock(this.CurSpacePoint);
   }
+  // 获取对象的Json字符串，方便在Redis之中存储
+  public get Json(): string {
+    return JSON.stringify(this);
+  }
 
   // 构造函数
   public constructor(params: {
     account: string,
-    x: number,
-    y: number,
-    dir: number,
-    ges: number,
+    name: string,
+    image: number | string,
+    x: number | string,
+    y: number | string,
+    dir: number | string,
+    ges: number | string,
   }) {
     this.account = params.account;
-    this.x = params.x;
-    this.y = params.y;
-    this.dir = params.dir;
-    this.ges = params.ges;
+    this.name = params.name;
+    this.image = Number(params.image);
+    this.x = Number(params.x);
+    this.y = Number(params.y);
+    this.dir = Number(params.dir);
+    this.ges = Number(params.ges);
   }
 }
