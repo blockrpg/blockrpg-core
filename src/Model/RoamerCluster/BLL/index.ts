@@ -1,26 +1,29 @@
 import { RoamerClusterDAL } from '../DAL';
-import { PlayerMeta } from '../../PlayerMeta/Entity';
+import { Roamer } from '../../Roamer/Entity';
 
-// 玩家进入集群
-export async function playerEnter(blockId: string, player: PlayerMeta): Promise<void> {
-  await RoamerClusterDAL.From().insertPlayer(blockId, player);
-}
-
-// 玩家离开集群
-export async function playerLeave(blockId: string, player: PlayerMeta): Promise<void> {
-  await RoamerClusterDAL.From().removePlayer(blockId, player);
-}
-
-// 玩家从一个集群移到另外一个集群
-export async function playerMove(
-  srcBlockId: string,
-  dstBlockId: string,
-  player: PlayerMeta,
+// Roamer进入某一个集群
+export async function roamerEnter(
+  clusterId: string,
+  roamer: Roamer,
 ): Promise<void> {
-  await RoamerClusterDAL.From().movePlayer(srcBlockId, dstBlockId, player);
+  await RoamerClusterDAL.From().insertRoamer(clusterId, roamer);
 }
-
-// 查询集群内的所有玩家
-export async function queryPlayers(blockId: string): Promise<PlayerMeta[]> {
-  return await RoamerClusterDAL.From().getPlayers(blockId);
+// Roamer离开某一个集群
+export async function roamerLeave(
+  clusterId: string,
+  account: string,
+): Promise<void> {
+  await RoamerClusterDAL.From().removeRoamer(clusterId, account);
+}
+// Roamer从一个集群移动到另外一个集群
+export async function roamerMove(
+  srcClusterId: string,
+  dstClusterId: string,
+  roamer: Roamer,
+): Promise<void> {
+  await RoamerClusterDAL.From().moveRoamer(srcClusterId, dstClusterId, roamer);
+}
+// 查询某个Cluster内当前所有的Roamer信息
+export async function getRoamers(clusterId: string): Promise<Roamer[]> {
+  return await RoamerClusterDAL.From().queryRoamers(clusterId);
 }
