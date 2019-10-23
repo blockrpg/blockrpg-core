@@ -2,6 +2,8 @@
 export const QUERY_ROAMER = `
   SELECT
     CONVERT(id + 10000, CHAR) AS 'account',
+    name,
+    image,
     x,
     y,
     dir,
