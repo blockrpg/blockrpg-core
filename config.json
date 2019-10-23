@@ -12,16 +12,10 @@
     "family": 4,
     "db": 0
   },
-  "redis-roamer": {
-    "host": "localhost",
-    "port": 6379,
-    "family": 4,
-    "db": 1
-  },
   "redis-roamercluster": {
     "host": "localhost",
     "port": 6379,
     "family": 4,
-    "db": 2
+    "db": 1
   }
 }
