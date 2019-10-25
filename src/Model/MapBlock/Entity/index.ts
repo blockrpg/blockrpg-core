@@ -3,10 +3,11 @@ import { MapGrid } from './MapGrid';
 
 export class MapBlock {
   private id: number | undefined;
-  private mapId: string = '';
-  private x: number = 0;
-  private y: number = 0;
-  private grids: MapGrid[] = [];
+  private mapId: string;
+  private x: number;
+  private y: number;
+  private grids: MapGrid[];
+
   public get Id(): number | undefined {
     return this.id;
   }
@@ -41,15 +42,47 @@ export class MapBlock {
   public get Point(): Point {
     return new Point(this.x, this.y);
   }
+
+  // 转化成操作数据库可用的格式
+  public ToDB() {
+    return {
+      mapId: this.mapId,
+      x: this.x,
+      y: this.y,
+      resData: JSON.stringify(this.grids),
+    };
+  }
+
+  // 从数据库返回结果构建对象
+  public static FromDB(params: {
+    id: number | undefined,
+    mapId: string,
+    x: number,
+    y: number,
+    resData: any[],
+  }): MapBlock {
+    const block = new MapBlock({
+      id: params.id,
+      mapId: params.mapId,
+      x: params.x,
+      y: params.y,
+      grids: (params.resData || []).map((item) => new MapGrid(item)),
+    });
+    return block;
+  }
+
   // 构造函数
-  // 主要是从数据库返回信息之中构造对象
-  public constructor(params: any) {
+  public constructor(params: {
+    id: number | undefined,
+    mapId: string,
+    x: number,
+    y: number,
+    grids: MapGrid[],
+  }) {
     this.id = params.id || undefined;
     this.mapId = params.mapId || '';
     this.x = params.x || 0;
     this.y = params.y || 0;
-    // 反序列化构造Grids
-    const list: any[] = params.resData || [];
-    this.grids = list.map(item => new MapGrid(item));
+    this.grids = params.grids || [];
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "blockrpg-core",
-  "version": "1.9.1",
+  "version": "1.9.2",
   "main": "built/",
   "types": "built/index.d.ts",
   "scripts": {

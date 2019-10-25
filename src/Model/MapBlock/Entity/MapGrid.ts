@@ -1,7 +1,8 @@
 export class MapGrid {
-  private pass: boolean = false;
-  private resId: number = 1;
-  private resNum: number = 1;
+  private pass: boolean;
+  private resId: number;
+  private resNum: number;
+
   public get Pass(): boolean {
     return this.pass;
   }
@@ -20,7 +21,12 @@ export class MapGrid {
   public set ResNum(value: number) {
     this.resNum = value;
   }
-  public constructor(params: any) {
+  
+  public constructor(params: {
+    resId: number,
+    resNum: number,
+    pass: boolean,
+  }) {
     this.pass = params.pass || false;
     this.resId = params.resId || 0;
     this.resNum = params.resNum || 0;
