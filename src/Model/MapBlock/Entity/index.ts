@@ -43,6 +43,16 @@ export class MapBlock {
     return new Point(this.x, this.y);
   }
 
+  // 转化成前端可用的格式
+  public ToFE() {
+    return {
+      mapId: this.mapId,
+      x: this.x,
+      y: this.y,
+      grids: this.grids,
+    };
+  }
+
   // 转化成操作数据库可用的格式
   public ToDB() {
     return {
