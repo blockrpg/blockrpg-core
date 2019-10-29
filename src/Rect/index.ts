@@ -40,6 +40,12 @@ export class Rect {
   public get Y2(): number {
     return this.y + this.h - 1;
   }
+  public get Point1(): Point {
+    return new Point(this.X1, this.Y1);
+  }
+  public get Point2(): Point {
+    return new Point(this.X2, this.Y2);
+  }
   public get Width(): number {
     return this.w;
   }
