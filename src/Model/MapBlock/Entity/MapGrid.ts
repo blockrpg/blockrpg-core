@@ -3,6 +3,7 @@
 // 一般来说道具网格会显示在地图网格上方
 // 地图网格是必须的，道具网格是非必须的（没有任何道具站立的地图网格）
 import { GridMeta } from './GridMeta';
+import { Point } from '../../..';
 
 export class MapGrid {
   // 地图网格（必须）
@@ -26,10 +27,10 @@ export class MapGrid {
   public get HasProp(): boolean {
     return !!this.prop;
   }
-  // 网格是否可以通过
-  public get Pass(): boolean {
-    const mapPass = this.map.Pass;
-    const propPass = this.HasProp ? (this.prop as GridMeta).Pass : true;
+  // 网格是否可以直接通过
+  public get DirectPass(): boolean {
+    const mapPass = this.map.DirectPass;
+    const propPass = this.HasProp ? (this.prop as GridMeta).DirectPass : true;
     return mapPass && propPass;
   }
   // 网格的事件Id（道具事件优先）
@@ -38,20 +39,29 @@ export class MapGrid {
     const propEvent = this.HasProp ? (this.prop as GridMeta).EventId : undefined;
     return propEvent || mapEvent;
   }
+  
+  // 输入内部移动坐标计算是否通过
+  public Pass(pt: Point): boolean {
+    const mapPass = this.map.Pass(pt);
+    const propPass = this.HasProp ? (this.prop as GridMeta).Pass(pt) : true;
+    return mapPass && propPass;
+  }
 
   // 构造函数
   public constructor(params: {
     map: {
-      pass: boolean,
       resId: number,
       resNum: number,
       eventId?: string,
+      raised?: boolean,
+      passMask?: number,
     },
     prop?: {
-      pass: boolean,
       resId: number,
       resNum: number,
       eventId?: string,
+      raised?: boolean,
+      passMask?: number,
     },
   }) {
     this.map = new GridMeta(params.map);
