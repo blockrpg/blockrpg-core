@@ -33,75 +33,83 @@ export class GridMeta {
   public set PassMask(value: number) {
     this.passMask = value;
   }
-  // 根据PassMask数字计算出矩阵
-  public get PassMaskArray(): boolean[][] {
+  // 转换MaskNum为Mask矩阵
+  public static MaskNumToArray(mask: number): boolean[][] {
     return [
       [
-        !!(this.passMask & 0x00000001),
-        !!(this.passMask & 0x00000002),
-        !!(this.passMask & 0x00000004),
-        !!(this.passMask & 0x00000008),
-        !!(this.passMask & 0x00000010),
+        !!(mask & 0x00000001),
+        !!(mask & 0x00000002),
+        !!(mask & 0x00000004),
+        !!(mask & 0x00000008),
+        !!(mask & 0x00000010),
       ],
       [
-        !!(this.passMask & 0x00000020),
-        !!(this.passMask & 0x00000040),
-        !!(this.passMask & 0x00000080),
-        !!(this.passMask & 0x00000100),
-        !!(this.passMask & 0x00000200),
+        !!(mask & 0x00000020),
+        !!(mask & 0x00000040),
+        !!(mask & 0x00000080),
+        !!(mask & 0x00000100),
+        !!(mask & 0x00000200),
       ],
       [
-        !!(this.passMask & 0x00000400),
-        !!(this.passMask & 0x00000800),
-        !!(this.passMask & 0x00001000),
-        !!(this.passMask & 0x00002000),
-        !!(this.passMask & 0x00004000),
+        !!(mask & 0x00000400),
+        !!(mask & 0x00000800),
+        !!(mask & 0x00001000),
+        !!(mask & 0x00002000),
+        !!(mask & 0x00004000),
       ],
       [
-        !!(this.passMask & 0x00008000),
-        !!(this.passMask & 0x00010000),
-        !!(this.passMask & 0x00020000),
-        !!(this.passMask & 0x00040000),
-        !!(this.passMask & 0x00080000),
+        !!(mask & 0x00008000),
+        !!(mask & 0x00010000),
+        !!(mask & 0x00020000),
+        !!(mask & 0x00040000),
+        !!(mask & 0x00080000),
       ],
       [
-        !!(this.passMask & 0x00100000),
-        !!(this.passMask & 0x00200000),
-        !!(this.passMask & 0x00400000),
-        !!(this.passMask & 0x00800000),
-        !!(this.passMask & 0x01000000),
+        !!(mask & 0x00100000),
+        !!(mask & 0x00200000),
+        !!(mask & 0x00400000),
+        !!(mask & 0x00800000),
+        !!(mask & 0x01000000),
       ],
     ];
   }
+  // 转换Mask矩阵为MaskNum
+  public static MaskArrayToNum(array: boolean[][]): number {
+    let number = 0;
+    number |= array[0][0] ? 0x00000001 : 0;
+    number |= array[0][1] ? 0x00000002 : 0;
+    number |= array[0][2] ? 0x00000004 : 0;
+    number |= array[0][3] ? 0x00000008 : 0;
+    number |= array[0][4] ? 0x00000010 : 0;
+    number |= array[1][0] ? 0x00000020 : 0;
+    number |= array[1][1] ? 0x00000040 : 0;
+    number |= array[1][2] ? 0x00000080 : 0;
+    number |= array[1][3] ? 0x00000100 : 0;
+    number |= array[1][4] ? 0x00000200 : 0;
+    number |= array[2][0] ? 0x00000400 : 0;
+    number |= array[2][1] ? 0x00000800 : 0;
+    number |= array[2][2] ? 0x00001000 : 0;
+    number |= array[2][3] ? 0x00002000 : 0;
+    number |= array[2][4] ? 0x00004000 : 0;
+    number |= array[3][0] ? 0x00008000 : 0;
+    number |= array[3][1] ? 0x00010000 : 0;
+    number |= array[3][2] ? 0x00020000 : 0;
+    number |= array[3][3] ? 0x00040000 : 0;
+    number |= array[3][4] ? 0x00080000 : 0;
+    number |= array[4][0] ? 0x00100000 : 0;
+    number |= array[4][1] ? 0x00200000 : 0;
+    number |= array[4][2] ? 0x00400000 : 0;
+    number |= array[4][3] ? 0x00800000 : 0;
+    number |= array[4][4] ? 0x01000000 : 0;
+    return number;
+  }
+  // 根据PassMask数字计算出矩阵
+  public get PassMaskArray(): boolean[][] {
+    return GridMeta.MaskNumToArray(this.passMask);
+  }
   // 以矩阵格式设置PassMask
   public set PassMaskArray(value: boolean[][]) {
-    let number = 0;
-    number |= value[0][0] ? 0x00000001 : 0;
-    number |= value[0][1] ? 0x00000002 : 0;
-    number |= value[0][2] ? 0x00000004 : 0;
-    number |= value[0][3] ? 0x00000008 : 0;
-    number |= value[0][4] ? 0x00000010 : 0;
-    number |= value[1][0] ? 0x00000020 : 0;
-    number |= value[1][1] ? 0x00000040 : 0;
-    number |= value[1][2] ? 0x00000080 : 0;
-    number |= value[1][3] ? 0x00000100 : 0;
-    number |= value[1][4] ? 0x00000200 : 0;
-    number |= value[2][0] ? 0x00000400 : 0;
-    number |= value[2][1] ? 0x00000800 : 0;
-    number |= value[2][2] ? 0x00001000 : 0;
-    number |= value[2][3] ? 0x00002000 : 0;
-    number |= value[2][4] ? 0x00004000 : 0;
-    number |= value[3][0] ? 0x00008000 : 0;
-    number |= value[3][1] ? 0x00010000 : 0;
-    number |= value[3][2] ? 0x00020000 : 0;
-    number |= value[3][3] ? 0x00040000 : 0;
-    number |= value[3][4] ? 0x00080000 : 0;
-    number |= value[4][0] ? 0x00100000 : 0;
-    number |= value[4][1] ? 0x00200000 : 0;
-    number |= value[4][2] ? 0x00400000 : 0;
-    number |= value[4][3] ? 0x00800000 : 0;
-    number |= value[4][4] ? 0x01000000 : 0;
-    this.passMask = number;
+    this.passMask = GridMeta.MaskArrayToNum(value);
   }
   public get Raised(): boolean {
     return this.raised;
