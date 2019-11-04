@@ -1,9 +1,9 @@
 // 用于描述一个实际存在的地图网格单元
-// 由两个元素构成，地图网格的GridMeta以及道具网格的GridMeta
+// 由两个网格构成，地图网格的GridMeta以及道具网格的GridMeta
 // 一般来说道具网格会显示在地图网格上方
 // 地图网格是必须的，道具网格是非必须的（没有任何道具站立的地图网格）
 import { GridMeta } from './GridMeta';
-import { Point } from '../../..';
+import { Point } from '../../../Point';
 
 export class MapGrid {
   // 地图网格（必须）

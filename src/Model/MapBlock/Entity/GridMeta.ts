@@ -1,4 +1,4 @@
-import { Point } from "../../..";
+import { Point } from "../../../Point";
 
 // 用于描述一个网格信息的类（不包含位置信息）
 export class GridMeta {
@@ -9,29 +9,6 @@ export class GridMeta {
   // UnPassAll数字，对应全false矩阵
   public static get UnPassAll(): number {
     return 0;
-  }
-
-  // PassMask数字，用于精细化的定制Pass
-  // 是一个5 * 5的Mask网格，为一个25位二进制数字
-  private passMask: number;
-  // 网格是否抬升（抬升的网格可以容许玩家从下方穿过）
-  private raised: boolean;
-  // 网格图片资源Id
-  private resId: number;
-  // 网格图片内资源序号
-  private resNum: number;
-  // 网格可触发的事件Id（如果有的话）
-  private eventId?: string;
-
-  // 是否直接通过
-  public get DirectPass(): boolean {
-    return this.passMask === GridMeta.PassAll;
-  }
-  public get PassMask(): number {
-    return this.passMask;
-  }
-  public set PassMask(value: number) {
-    this.passMask = value;
   }
   // 转换MaskNum为Mask矩阵
   public static MaskNumToArray(mask: number): boolean[][] {
@@ -102,6 +79,29 @@ export class GridMeta {
     number |= array[4][3] ? 0x00800000 : 0;
     number |= array[4][4] ? 0x01000000 : 0;
     return number;
+  }
+
+  // PassMask数字，用于精细化的定制Pass
+  // 是一个5 * 5的Mask网格，为一个25位二进制数字
+  private passMask: number;
+  // 网格是否抬升（抬升的网格可以容许玩家从下方穿过）
+  private raised: boolean;
+  // 网格图片资源Id
+  private resId: number;
+  // 网格图片内资源序号
+  private resNum: number;
+  // 网格可触发的事件Id（如果有的话）
+  private eventId?: string;
+
+  // 网格是否可以直接通过
+  public get DirectPass(): boolean {
+    return this.passMask === GridMeta.PassAll;
+  }
+  public get PassMask(): number {
+    return this.passMask;
+  }
+  public set PassMask(value: number) {
+    this.passMask = value;
   }
   // 根据PassMask数字计算出矩阵
   public get PassMaskArray(): boolean[][] {
